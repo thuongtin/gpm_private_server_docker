@@ -7,8 +7,9 @@ RUN apt-get update \
   && docker-php-ext-install pdo_mysql mysqli mbstring zip \
   && docker-php-ext-enable mysqli \
   && a2enmod rewrite \
-  && apt-get install -y nodejs \
-  && apt-get install -y npm
+  && apt-get install -y nodejs npm \
+  && npm install n -g \
+  && n 18.7.0 #最新VerのNode.jsでないと、run/buildでエラー
 
 # composer インストール
 RUN curl -sS https://getcomposer.org/installer | php \
