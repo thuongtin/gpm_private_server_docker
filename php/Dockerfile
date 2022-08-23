@@ -9,15 +9,17 @@ RUN apt-get update \
   && a2enmod rewrite \
   && apt-get install -y nodejs npm \
   && npm install n -g \
-  && n 18.7.0 #最新VerのNode.jsでないと、run/buildでエラー
+  && n 18.7.0
 
 # composer インストール
 RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && chmod +x /usr/local/bin/composer
 
-# ワーキングディレクトリの指定
-WORKDIR /var/www/html
+# phpcs インストール
+RUN composer global require squizlabs/php_codesniffer
+# phpcs PATH
+ENV PATH=/root/.config/composer/vendor/bin:$PATH
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /composer
