@@ -21,6 +21,9 @@ RUN composer global require squizlabs/php_codesniffer
 # phpcs PATH
 ENV PATH=/root/.config/composer/vendor/bin:$PATH
 
+# debugbarインストール
+RUN composer require barryvdh/laravel-debugbar
+
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /composer
 ENV PATH $PATH:/composer/vendor/bin
