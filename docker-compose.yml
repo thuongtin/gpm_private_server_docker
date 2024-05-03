@@ -8,29 +8,30 @@ services:
       - ./data:/var/lib/mysql
       - ./db/my.cnf://etc/mysql/conf.d/my.cnf
       - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./www/gpmlogin.sql:/docker-entrypoint-initdb.d/gpmlogin.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
+      MYSQL_DATABASE: gpmlogin
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
-      TZ: 'Asia/Tokyo'
+      TZ: 'Asia/Ho_Chi_Minh'
     ports:
       - "13306:3306"
   php-apache:
     build: ./php
     container_name: "laravel-ec-php"
     volumes:
-      - ./source:/var/www/html
+      - ./www:/var/www/html
       - ./php/vhost.conf:/etc/apache2/conf-enabled/vhost.conf
     ports:
-      - "8080:80"
+      - "80:80"
   phpmyadmin:
     image: phpmyadmin:5.2.0
     container_name: "laravel-ec-phpmyadmin"
     depends_on:
       - db
     ports:
-      - "3000:80"
+      - "5050:80"
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOSTS=db
