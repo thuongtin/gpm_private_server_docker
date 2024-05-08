@@ -4,6 +4,7 @@ services:
   db:
     image: mariadb:10.4
     container_name: "laravel-ec-mariaDB"
+    restart: always
     volumes:
       - ./data:/var/lib/mysql
       - ./db/my.cnf://etc/mysql/conf.d/my.cnf
@@ -20,6 +21,7 @@ services:
   php-apache:
     build: ./php
     container_name: "laravel-ec-php"
+    restart: always
     volumes:
       - ./www:/var/www/html
       - ./php/vhost.conf:/etc/apache2/conf-enabled/vhost.conf
@@ -28,6 +30,7 @@ services:
   phpmyadmin:
     image: phpmyadmin:5.2.0
     container_name: "laravel-ec-phpmyadmin"
+    restart: always
     depends_on:
       - db
     ports:
